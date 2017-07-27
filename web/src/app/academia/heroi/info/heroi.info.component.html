@@ -1,0 +1,105 @@
+<div class="ui-s600">
+    <form #heroiForm="ngForm" (submit)="confirmar(heroiForm)" class="ui-validate on-dirty on-submit">
+        <ui-card [class.loading]="carregando">
+            <div class="ui-progress accent">
+                <div class="indeterminate"></div>
+            </div>
+
+            <ui-toolbar class="flat">
+                <button class="ui-button icon flat" type="button" uiRipple [routerLink]="['..']">
+                    <i class="material-icons">arrow_back</i>
+                </button>
+
+                <span class="title">{{novoCadastro ? 'Novo herói ' : (carregando ? 'Carregando' : 'Alterando ' + (heroi.nome || ''))}}</span>
+            </ui-toolbar>
+
+            <ui-card-content>
+                <fieldset [disabled]="salvando || carregando">
+                    <div class="ui-flex-container break-on-s480">
+                        <ui-input-container>
+                            <input type="text"
+                                   #heroiNome="ngModel"
+                                   [(ngModel)]="heroi.nome"
+                                   name="nome"
+                                   required
+                                   autocomplete="off"
+                                   uiInput
+                                   uiMaxlength="30">
+                            <label>Nome</label>
+                            <div class="ui-messages">
+                                <div *ngIf="heroiNome.errors && heroiNome.dirty">
+                                    <div class="ui-message error" [hidden]="!heroiNome.pristine && !heroiNome.errors.required">
+                                        Nome do herói é obrigatório
+                                    </div>
+                                    <div class="ui-message error" [hidden]="!heroiNome.errors.uiMaxlength">
+                                        Campo nome não pode conter mais de 30 caracteres
+                                    </div>
+                                </div>
+                            </div>
+                        </ui-input-container>
+
+                        <ui-input-container style="max-width: 100px">
+                            <input type="text"
+                                   #heroiIdade="ngModel"
+                                   [(ngModel)]="heroi.idade"
+                                   name="idade"
+                                   required
+                                   autocomplete="off"
+                                   uiInput
+                                   uiMaskInteger>
+                            <label>Idade</label>
+                            <div class="ui-messages">
+                                <div *ngIf="heroiIdade.errors && heroiIdade.dirty">
+                                    <div class="ui-message error" [hidden]="!heroiIdade.pristine && !heroiIdade.errors.required">
+                                        Idade do herói é obrigatório
+                                    </div>
+                                </div>
+                            </div>
+                        </ui-input-container>
+                    </div>
+
+                    <div class="ui-flex-container break-on-s480">
+                        <ui-input-container>
+                            <select #heroiCor="ngModel" [(ngModel)]="heroi.cor" uiInput name="cor" required>
+                            </select>
+                            <label>Cor principal</label>
+                            <!--<label>{{cores.carregando ? 'Cor primaria' : 'Carregando cores'}}</label>-->
+
+                            <div class="ui-messages">
+                                <div *ngIf="heroiCor.errors && heroiCor.dirty">
+                                    <div class="ui-message error" [hidden]="!heroiCor.pristine && !heroiCor.errors.required">
+                                        Cor do herói é obrigatória
+                                    </div>
+                                </div>
+                            </div>
+                        </ui-input-container>
+
+                        <ui-input-container>
+                            <select #heroiPoder="ngModel" [(ngModel)]="heroi.poder" uiInput name="poder" required>
+                            </select>
+                            <label>Super poder</label>
+                            <!--<label>{{cores.carregando ? 'Cor primaria' : 'Carregando cores'}}</label>-->
+
+                            <div class="ui-messages">
+                                <div *ngIf="heroiPoder.errors && heroiPoder.dirty">
+                                    <div class="ui-message error" [hidden]="!heroiPoder.pristine && !heroiPoder.errors.required">
+                                        Poder do herói é obrigatório
+                                    </div>
+                                </div>
+                            </div>
+                        </ui-input-container>
+                    </div>
+                </fieldset>
+
+            </ui-card-content>
+        </ui-card>
+
+        <!-- FAB BUTTON -->
+        <div class="ui-fab-container" style="z-index: 2">
+            <button class="ui-button success fab" uiRipple [class.hide]="carregando">
+                <ui-progress-radial class="indeterminate" *ngIf="salvando"></ui-progress-radial>
+                <i class="material-icons">check</i>
+            </button>
+        </div>
+    </form>
+</div>

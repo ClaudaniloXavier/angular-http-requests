@@ -1,0 +1,48 @@
+<ui-toolbar class="fixed elevate-on-scroll primary elevate-on-s960" id="app-header">
+    <button (click)="menuOpen = true" class="ui-button flat icon" uiRipple>
+        <i class="material-icons">menu</i>
+    </button>
+
+    <a class="logo" routerLink="/" style="color: #FFF; font-size: 22px; text-decoration: none; font-weight: 500">
+        Heroes Academy
+    </a>
+
+    <span class="title">{{ title || "Home" }}</span>
+
+    <div class="align-right">
+        <div class="user-area clickable" align="right">
+            <div class="info">
+                <div class="primary">{{user.nome}}</div>
+                <span style="font-size: 13px; font-weight: 300" *ngIf="user.tipo">{{user.tipo ? user.tipo : ''}}</span>
+            </div>
+            <div class="profile-pic"
+                 [ngStyle]="{'background-color': user.cor ? user.cor : '#ECEFF1', 'color': user.cor ? '#263238' : '#FFF'}">
+                {{user.nome.charAt(0)}}
+            </div>
+        </div>
+    </div>
+</ui-toolbar>
+
+<ui-nav-drawer [(open)]="menuOpen">
+    <ui-toolbar class="flat">
+        <button (click)="menuOpen = false" class="ui-button flat icon" uiRipple>
+            <i class="material-icons">arrow_back</i>
+        </button>
+
+        <a class="logo" routerLink="/" style="color: #FFF; font-size: 22px; text-decoration: none; font-weight: 500">
+            Heroes Academy
+        </a>
+    </ui-toolbar>
+    <div class="ui-nav-drawer-overflow">
+        <div class="ui-list">
+            <a class="ui-list-item" uiRipple routerLink="/home" style="display: flex; align-items: center">
+                <i class="material-icons" style="margin-right: 10px">home</i>
+                Home
+            </a>
+            <a class="ui-list-item" uiRipple routerLink="/meus-herois">Meus heróis</a>
+        </div>
+    </div>
+</ui-nav-drawer>
+
+<router-outlet></router-outlet>
+<ui-snackbar-container></ui-snackbar-container>
