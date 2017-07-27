@@ -1,11 +1,10 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
-
 import { HeroiListaComponent } from './lista/heroi.lista.component';
 import { HeroiInfoComponent } from './info/heroi.info.component';
-
 import { HeroiService } from './heroi.service';
 import { CoreComponent } from '../../core/core.component';
+import { EditarHeroiResolve } from './resolves/editar-heroi.resolve';
 
 const routes: Routes = [
     {
@@ -26,6 +25,9 @@ const routes: Routes = [
                     {
                         path: ':id',
                         component: HeroiInfoComponent,
+                        resolve: {
+                            herois: EditarHeroiResolve
+                        }
                     }
                 ]
             }
@@ -38,7 +40,8 @@ const routes: Routes = [
     imports: [RouterModule.forChild(routes)],
     exports: [RouterModule],
     providers: [
-        HeroiService
+        HeroiService,
+        EditarHeroiResolve
     ]
 })
 

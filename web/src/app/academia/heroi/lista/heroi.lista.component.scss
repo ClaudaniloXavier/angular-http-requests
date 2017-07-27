@@ -17,12 +17,22 @@
                 font-size: 16px;
                 width: 100%;
                 background-color: transparent;
-                color: #FFF;
             }
 
             button:last-child {
                 margin-right: 10px;
             }
+        }
+
+        .hero-pic {
+            height: 40px;
+            width: 40px;
+            border-radius: 50%;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            color: #FFFFFF;
+            font-size: 18px;
         }
 
 

@@ -58,11 +58,25 @@ export class HeroiService {
             .then(() => null);
     }
 
+    listarCor() {
+        return this
+            .http
+            .get(`${environment.API_HEROIS}cor`, new RequestOptions({headers: this.headers}))
+            .toPromise()
+            .then(res => res.json());
+    }
+
+    listarPoder() {
+        return this
+            .http
+            .get(`${environment.API_HEROIS}superPoder`, new RequestOptions({headers: this.headers}))
+            .toPromise()
+            .then(res => res.json());
+    }
+
     loadHeaders() {
         this.headers = new Headers({
-            'Content-Type': 'application/json',
-            'Option': 'ADqIh1Gdv9w',
-            // 'Authentication': this.cookie.getCookie(environment.TOKEN_COOKIE_NAME)
+            'Content-Type': 'application/json'
         });
     }
 }

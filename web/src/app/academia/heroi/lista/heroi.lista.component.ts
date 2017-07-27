@@ -2,7 +2,7 @@ import { Component, AfterViewInit, OnDestroy, OnInit } from '@angular/core';
 import { Subject } from 'rxjs/Subject';
 import { HeroiService } from '../heroi.service';
 import { UiToolbarService, UiSnackbar } from 'ng-smn-ui';
-import {Heroi} from '../hero';
+import { Heroi } from '../hero';
 
 @Component({
     selector: 'heroi-lista',
@@ -12,8 +12,6 @@ import {Heroi} from '../hero';
 export class HeroiListaComponent implements AfterViewInit, OnDestroy, OnInit {
     herois: any [];
     filtro: string;
-    totalLinhas: number;
-    pagina: number;
     heroiParaDeletar: any;
 
     private termosBusca = new Subject<string>();
@@ -21,7 +19,7 @@ export class HeroiListaComponent implements AfterViewInit, OnDestroy, OnInit {
     constructor (
         private toolbarService: UiToolbarService,
         private heroiService: HeroiService,
-    ) {}
+    ) { }
 
     buscar(busca: string): void {
         this.termosBusca.next(busca);
@@ -40,6 +38,7 @@ export class HeroiListaComponent implements AfterViewInit, OnDestroy, OnInit {
         this.toolbarService.set('Meus heróis');
         this.toolbarService.activateExtendedToolbar();
 
+        // Lista todos os heróis ao entrar na pagina;
         this.listarHerois();
     }
 
@@ -47,25 +46,26 @@ export class HeroiListaComponent implements AfterViewInit, OnDestroy, OnInit {
         this.toolbarService.deactivateExtendedToolbar();
     }
 
+    // Método para fazer a listagem de heróis;
     listarHerois(): void {
         const filter = {
             filtro: this.filtro || ''
         };
-
         this.heroiService
             .listarHerois(filter)
             .subscribe((res) => {
-                this.totalLinhas = res.totalLinhas;
-                this.herois = res.content;
+                this.herois = res;
             });
     }
 
+    // Método para deletar um heroi da lista de heróis
     deletarHeroi(heroi: Heroi): void {
         this.heroiService.deletarHeroi(heroi)
             .then(() => {
                 this.herois = this.herois.filter(obj => obj !== heroi);
                 this.listarHerois();
 
+                UiSnackbar.hide();
                 UiSnackbar.show({
                     text: heroi.nome + ' excluído com sucesso'
                 });

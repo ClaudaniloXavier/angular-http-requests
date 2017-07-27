@@ -4,7 +4,7 @@
 $primary: (color: 'blue', hue: '500');
 $accent: (color: 'pink', hue: 'A400');
 
-$theme: ui-theme($primary, $accent, true);
+$theme: ui-theme($primary, $accent);
 
 @include ui-core();
 

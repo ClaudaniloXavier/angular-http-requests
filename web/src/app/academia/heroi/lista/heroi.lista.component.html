@@ -6,12 +6,12 @@
                     <input #textoFormBusca="ngModel"
                            name="buscaRapida"
                            [(ngModel)]="filtro"
+                           (keyup)="buscar(textoFormBusca.value)"
                            type="text"
                            uiMaxlength="200"
                            autocomplete="off"
                            placeholder="Pesquisar herois"
                            autofocus>
-                           <!--(keyup)="buscar(textoFormBusca.value)">-->
                     <button class="ui-button icon flat"
                             type="button"
                             [disabled]="!filtro"
@@ -25,8 +25,8 @@
         <table class="ui-data-table">
             <tbody style="overflow: hidden">
                 <tr *ngFor="let heroi of herois" style="height: 60px; user-select: none">
-                    <td>
-                        <div style="height: 40px; width: 40px; border-radius: 50%; background-color: #FFF">C</div>
+                    <td style="width: 80px">
+                        <div class="hero-pic" [ngStyle]="{'background-color': heroi.cor ? heroi.cor : '#FFFFFF'}">{{heroi.nome.charAt(0).toUpperCase()}}</div>
                     </td>
                     <td>{{heroi.nome}}</td>
                     <td class="align-right">
@@ -45,25 +45,6 @@
                     <td colspan="2">Nenhum herói foi encontrado</td>
                 </tr>
             </tbody>
-            <tfoot>
-                <tr>
-                    <td colspan="2" class="align-right" *ngIf="!herois || !herois.length">
-                        <div class="ui-button-container align-right">
-                            <span class="pagination">
-                                {{((this.pagina - 1) * 10) + 1}} - {{this.pagina * 10 < this.totalLinhas ? this.pagina * 10 : this.totalLinhas}} de {{this.totalLinhas}}
-                            </span>
-
-                            <button class="ui-button flat icon" uiRipple [disabled]="this.pagina < 2" (click)="this.pagina = this.pagina -1; this.listarGrupos();">
-                                <i class="material-icons">keyboard_arrow_left</i>
-                            </button>
-
-                            <button class="ui-button flat icon" uiRipple [disabled]="this.totalLinhas <= this.pagina * 10" (click)="this.pagina = this.pagina + 1; this.listarGrupos();">
-                                <i class="material-icons">keyboard_arrow_right</i>
-                            </button>
-                        </div>
-                    </td>
-                </tr>
-            </tfoot>
         </table>
     </ui-card>
 

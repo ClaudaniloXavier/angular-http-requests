@@ -22,7 +22,7 @@
         "@angular/platform-browser-dynamic": "^4.2.6",
         "@angular/router": "^4.2.6",
         "core-js": "^2.4.1",
-        "ng-smn-ui": "^1.0.10",
+        "ng-smn-ui": "^1.0.12",
         "node-sass": "^4.5.3",
         "rxjs": "^5.4.2",
         "webpack": "^3.1.0",

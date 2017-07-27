@@ -1,10 +1,6 @@
 <div class="ui-s600">
     <form #heroiForm="ngForm" (submit)="confirmar(heroiForm)" class="ui-validate on-dirty on-submit">
-        <ui-card [class.loading]="carregando">
-            <div class="ui-progress accent">
-                <div class="indeterminate"></div>
-            </div>
-
+        <ui-card>
             <ui-toolbar class="flat">
                 <button class="ui-button icon flat" type="button" uiRipple [routerLink]="['..']">
                     <i class="material-icons">arrow_back</i>
@@ -14,7 +10,7 @@
             </ui-toolbar>
 
             <ui-card-content>
-                <fieldset [disabled]="salvando || carregando">
+                <fieldset [disabled]="carregando">
                     <div class="ui-flex-container break-on-s480">
                         <ui-input-container>
                             <input type="text"
@@ -60,10 +56,13 @@
 
                     <div class="ui-flex-container break-on-s480">
                         <ui-input-container>
-                            <select #heroiCor="ngModel" [(ngModel)]="heroi.cor" uiInput name="cor" required>
+                            <select #heroiCor="ngModel" [(ngModel)]="heroi.idCor" uiInput name="cor" required>
+                                <option *ngFor="let cor of cores"
+                                        [value]="cor.id">
+                                    {{cor.nomeCor}}
+                                </option>
                             </select>
                             <label>Cor principal</label>
-                            <!--<label>{{cores.carregando ? 'Cor primaria' : 'Carregando cores'}}</label>-->
 
                             <div class="ui-messages">
                                 <div *ngIf="heroiCor.errors && heroiCor.dirty">
@@ -75,10 +74,13 @@
                         </ui-input-container>
 
                         <ui-input-container>
-                            <select #heroiPoder="ngModel" [(ngModel)]="heroi.poder" uiInput name="poder" required>
+                            <select #heroiPoder="ngModel" [(ngModel)]="heroi.idPoder" uiInput name="poder" required>
+                                <option *ngFor="let poder of poderes"
+                                        [value]="poder.id">
+                                    {{poder.nomeSuperPoder}}
+                                </option>
                             </select>
                             <label>Super poder</label>
-                            <!--<label>{{cores.carregando ? 'Cor primaria' : 'Carregando cores'}}</label>-->
 
                             <div class="ui-messages">
                                 <div *ngIf="heroiPoder.errors && heroiPoder.dirty">
