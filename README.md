@@ -1,2 +1,2 @@
 # angular-http-requests
-Projeto para curso sobre http-requests em angular 4
+Project developed and taught in the SMN vacation course on angular http requests
